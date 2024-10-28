@@ -5,7 +5,6 @@ import Header from "../components/Header.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { ViewTransitions } from 'astro:transitions';
 type Props = CollectionEntry<"blog">["data"];
-
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
