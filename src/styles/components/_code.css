@@ -1,0 +1,19 @@
+code {
+  padding: 0.2em 0.4em;
+  background-color: var(--pill-color);
+  border-radius: 4px;
+  font-size: 0.875em;
+  color: var(--text-color);
+}
+
+pre {
+  padding: 1.5em;
+  border-radius: 8px;
+  background-color: var(--pill-color);
+  overflow-x: auto;
+}
+
+pre > code {
+  background: none;
+  padding: 0;
+}

@@ -1,0 +1,46 @@
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  main {
+    padding: 2em 1em;
+  }
+
+  .post-link {
+    grid-template-columns: 1fr;
+  }
+
+  .post-image {
+    height: 200px;
+  }
+
+  .filter {
+    gap: 0.5rem;
+  }
+
+  .filter button {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  .post-image {
+    height: 150px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 2rem;
+  }
+  h3 {
+    font-size: 1.75rem;
+  }
+}

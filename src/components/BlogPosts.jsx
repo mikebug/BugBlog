@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import FormattedDate from '../components/FormattedDate.jsx';
+import React, { useState, useEffect } from "react";
+import FormattedDate from "../components/FormattedDate.jsx";
 
 const BlogPosts = ({ posts, categories }) => {
   const [filteredPosts, setFilteredPosts] = useState(posts);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [isAscending, setIsAscending] = useState(true); // New state for sorting order
 
   useEffect(() => {
@@ -19,8 +19,8 @@ const BlogPosts = ({ posts, categories }) => {
   }
 
   function filterPosts(category, ascending) {
-    let filtered = posts.filter(post => {
-      return category === 'All' || post.data.category === category;
+    let filtered = posts.filter((post) => {
+      return category === "All" || post.data.category === category;
     });
 
     // Sort the filtered posts by date
@@ -39,28 +39,45 @@ const BlogPosts = ({ posts, categories }) => {
         {Object.keys(categories).map((category) => (
           <button
             key={category}
-            className={`filter-button ${selectedCategory === category ? 'active' : ''}`}
+            className={`filter-button ${selectedCategory === category ? "active" : ""}`}
             onClick={() => updateCategory(category)}
           >
             {category}
           </button>
         ))}
         <button className="sort-button" onClick={toggleSortOrder}>
-          Sort by Date {isAscending ? '↑' : '↓'}
+          Sort by Date {isAscending ? "↑" : "↓"}
         </button>
       </div>
       <ul className="post-list">
         {filteredPosts.map((post) => (
           <li key={post.slug} className="post-item">
             <a href={`/${post.slug}/`} className="post-link">
-              <img src={post.data.heroImage} alt={post.data.title} className="post-image" />
+              <img
+                src={post.data.heroImage}
+                alt={post.data.title}
+                className="post-image"
+              />
               <div className="post-content">
-                <h3 className="post-title">{post.data.title}</h3>
-                <p className="post-category">{post.data.category}</p>
+                <div className="post-header">
+                  <p className="post-title">{post.data.title}</p>
+                  <p className="post-category">{post.data.category}</p>
+                </div>
+                <p className="post-description">{post.data.description}</p>
+                <div className="post-badges">
+                  {post.data.tags && post.data.tags.length > 0 ? (
+                    post.data.tags.map((tag, index) => (
+                      <span key={`${post.slug}-${index}`} className="badge">
+                        {tag}
+                      </span>
+                    ))
+                  ) : (
+                    <span>No tags available</span>
+                  )}
+                </div>
                 <p className="post-date">
                   <FormattedDate date={post.data.pubDate} />
                 </p>
-                <p className="post-description">{post.data.description}</p>
               </div>
             </a>
           </li>

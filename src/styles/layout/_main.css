@@ -1,0 +1,7 @@
+main {
+  width: 900px;
+  max-width: calc(100% - 2em);
+  margin: auto;
+  padding: 1em 1em;
+  flex: 1;
+}

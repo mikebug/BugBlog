@@ -1,0 +1,53 @@
+/* src/styles/theme.css */
+:root {
+  /* Light theme variables */
+  --background-light: #ffffff;
+  --text-color-light: #222933;
+  --accent-light: #f63f01;
+  --pill-color-light: #e8ebee;
+  --gray-light: 229, 233, 240;
+  --secondary-color-light: #007bff;
+
+  /* Dark theme variables */
+  --background-dark: #121212;
+  --text-color-dark: #e8ebee;
+  --accent-dark: #ff7e5f;
+  --pill-color-dark: #363636;
+  --gray-dark: rgb(100, 100, 100);
+  --secondary-color-dark: #1e90ff;
+
+  /* Default theme (light) */
+  --background: var(--background-light);
+  --text-color: var(--text-color-light);
+  --accent: var(--accent-light);
+  --pill-color: var(--pill-color-light);
+  --gray: var(--gray-light);
+  --secondary-color: var(--secondary-color-light);
+}
+
+[data-theme="dark"] {
+  --background: var(--background-dark);
+  --text-color: var(--text-color-dark);
+  --accent: var(--accent-dark);
+  --pill-color: var(--pill-color-dark);
+  --gray: var(--gray-dark);
+  --secondary-color: var(--secondary-color-dark);
+}
+
+/* Remove !important flags and use CSS specificity instead */
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* Add smooth transitions for theme changes */
+:root {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Theme-aware focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

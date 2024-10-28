@@ -1,25 +1,37 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import BlogPosts from '../components/BlogPosts.jsx';
-import { getCollection } from 'astro:content';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import BlogPosts from "../components/BlogPosts.jsx";
+import { getCollection } from "astro:content";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { ViewTransitions } from "astro:transitions";
 
 // Fetch blog posts
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 // Set up categories for filtering
 const categories = {
-  'All': posts,
-  'Career & Projects': posts.filter(post => post.data.category === 'Career & Projects'),
-  'Personal Development': posts.filter(post => post.data.category === 'Personal Development'),
-  'Design & Creativity': posts.filter(post => post.data.category === 'Design & Creativity'),
-  'Technology & Development': posts.filter(post => post.data.category === 'Technology & Development'),
-  'Lifestyle & Interests': posts.filter(post => post.data.category === 'Lifestyle & Interests'),
-  'Random Thoughts': posts.filter(post => post.data.category === 'Random Thoughts'),
+  All: posts,
+  "Career & Projects": posts.filter(
+    (post) => post.data.category === "Career & Projects"
+  ),
+  "Design & Creativity": posts.filter(
+    (post) => post.data.category === "Design & Creativity"
+  ),
+  "Lifestyle & Interests": posts.filter(
+    (post) => post.data.category === "Lifestyle & Interests"
+  ),
+  "Random Thoughts": posts.filter(
+    (post) => post.data.category === "Random Thoughts"
+  ),
+  "Personal Development": posts.filter(
+    (post) => post.data.category === "Personal Development"
+  ),
+  "Technology & Development": posts.filter(
+    (post) => post.data.category === "Technology & Development"
+  ),
 };
 ---
 
@@ -28,11 +40,37 @@ const categories = {
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <ViewTransitions />
+    <script>
+      import "../lib/theme-init.js";
+    </script>
   </head>
+
   <body>
     <Header />
     <main>
-      <h2>Blog Posts</h2>
+      <div>
+        <h3>Sup Scrubs,</h3>
+        <br />
+        <p>
+          👋 Welcome to my blog! I'm Mike Bug, a software engineer and content
+          creator. Here, you'll find posts on various topics, including
+          technology 💻, personal development 📈, and random thoughts 💭. Feel
+          free to explore my posts below!
+        </p>
+        <br />
+        <p>
+          🌟 I'm taking on the $100,000 challenge! Follow along as I share my
+          progress and dive into what I'm doing to get there 💪🚀.
+        </p>
+      </div>
+      <br />
+      <div>
+        <h3>Income Progress</h3>
+        <progress style="display: block;" value="0" max="100000"></progress>
+        <p>$ 00.00</p>
+      </div>
+      <br />
+      <h2>Mike Bug's Posts</h2>
       <BlogPosts client:load posts={posts} categories={categories} />
     </main>
   </body>
