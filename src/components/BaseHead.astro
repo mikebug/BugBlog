@@ -17,7 +17,12 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link
+  rel="icon"
+  type="image/x-icon"
+  href="https://michaelbuglione.com/favicon.ico"
+/>
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->
@@ -49,7 +54,7 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={new URL(image, Astro.url)} /> //add later
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
