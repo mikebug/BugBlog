@@ -1,60 +1,72 @@
-<button id="theme-toggle" aria-label="Toggle theme"> Toggle Theme </button>
+<button id="theme-toggle" aria-label="Toggle theme">Light ☀️ Mode</button>
 
 <script>
-  // src/lib/theme-init.js
-  import {
-    getInitialTheme,
-    applyTheme,
-    initializeThemeListener,
-    toggleTheme,
-  } from "../lib/theme.js";
+  // Initialize theme handling
+  function getInitialTheme() {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }
+
+  function toggleTheme() {
+    const currentTheme = localStorage.getItem("theme") || "light";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    applyTheme(newTheme);
+    return newTheme;
+  }
 
   // Initialize theme as early as possible
   function initializeTheme() {
     const initialTheme = getInitialTheme();
     applyTheme(initialTheme);
-    initializeThemeListener();
-    attachThemeToggleListener();
+    updateButtonText(initialTheme);
+  }
+
+  function updateButtonText(theme) {
+    const button = document.getElementById("theme-toggle");
+    if (button) {
+      button.textContent = `${theme === "dark" ? "Light ☀️" : "Dark 🌙"} Mode`;
+    }
   }
 
   // Attach event listener to theme toggle button
   function attachThemeToggleListener() {
     const themeToggle = document.getElementById("theme-toggle");
     if (themeToggle) {
-      // Remove existing listeners to prevent duplicates
-      const newThemeToggle = themeToggle.cloneNode(true);
-      if (themeToggle.parentNode) {
-        themeToggle.parentNode.replaceChild(newThemeToggle, themeToggle);
-      }
-
-      newThemeToggle.addEventListener("click", () => {
+      themeToggle.addEventListener("click", () => {
         const newTheme = toggleTheme();
-        // Update button text if needed
-        if (newThemeToggle.textContent) {
-          newThemeToggle.textContent = `${newTheme === "dark" ? "Light ☀️" : "Dark 🌙"} Mode`;
-        }
+        updateButtonText(newTheme);
       });
     }
   }
 
-  // Execute immediately if document is ready
+  // Execute when document is ready
   if (document.readyState !== "loading") {
     initializeTheme();
+    attachThemeToggleListener();
   } else {
-    document.addEventListener("DOMContentLoaded", initializeTheme);
+    document.addEventListener("DOMContentLoaded", () => {
+      initializeTheme();
+      attachThemeToggleListener();
+    });
   }
 
-  // Re-apply theme and reattach listeners after view transitions
+  // Handle theme during Astro view transitions
   document.addEventListener("astro:after-swap", () => {
     const currentTheme = localStorage.getItem("theme");
     if (currentTheme) {
       applyTheme(currentTheme);
+      updateButtonText(currentTheme);
     }
-    attachThemeToggleListener();
-  });
-
-  // Also handle theme toggle during page transitions
-  document.addEventListener("astro:after-preparation", () => {
     attachThemeToggleListener();
   });
 </script>
@@ -68,8 +80,12 @@
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    background: linear-gradient(135deg, var(--accent), var(--secondary-color));
-    color: var(--background);
+    background: linear-gradient(
+      135deg,
+      var(--accent, #4f46e5),
+      var(--secondary-color, #7c3aed)
+    );
+    color: var(--background, #ffffff);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition:
       transform 0.2s ease,
@@ -91,7 +107,7 @@
   }
 
   #theme-toggle:focus {
-    outline: 3px solid var(--accent);
+    outline: 3px solid var(--accent, #4f46e5);
     outline-offset: 2px;
   }
 </style>
