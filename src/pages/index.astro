@@ -70,6 +70,9 @@ const categories = {
         background-color: var(--primary);
         border-radius: 2px;
       }
+      .square-active {
+        background-color: var(--accent);
+      }
 
       .squares-container {
         overflow: hidden;
@@ -92,21 +95,28 @@ const categories = {
         </p>
         <br />
         <p>
-          🌟 I'm taking on the $100,000 challenge! Follow along as I share my
+          🌟 I'm taking on the $10,000 challenge! Follow along as I share my
           progress and dive into what I'm doing to get there 💪🚀.
         </p>
       </div>
       <br />
       <div>
         <h3>Income Progress</h3>
-        <progress style="display: block;" value="0" max="100000"></progress>
-        <p>$ 00.00</p>
+        <progress style="display: block;" value="1000" max="100000"></progress>
+        <p>$ 1000.00</p>
         <div class="squares-container">
           <div class="grid-container">
             {
-              Array.from({ length: 1000 }, (_, index) => (
+              Array.from({ length: 1 }, (_, index) => (
                 <div class="grid-item">
-                  <div class="square" class="square" />
+                  <div class="square square-active" />
+                </div>
+              ))
+            }
+            {
+              Array.from({ length: 999 }, (_, index) => (
+                <div class="grid-item">
+                  <div class="square" />
                 </div>
               ))
             }
